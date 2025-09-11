@@ -8,14 +8,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// Use environment variables supplied by Railway in production
+// MySQL connection
 const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME,
-  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306,
-  timezone: process.env.DB_TIMEZONE || '+00:00' // optional: set if needed
+  host: 'localhost',
+  user: 'root',         // 🔹 your MySQL username
+  password: 'Soomro@144', // 🔹 your MySQL password
+  database: 'librarydb',
+  timezone: '+05:00'
 });
 
 //Make sure SQL is connected
