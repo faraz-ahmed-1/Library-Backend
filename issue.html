@@ -1,0 +1,852 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .navbar .logo img {
+      width: 30px;
+      margin-right: 8px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffdd57;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    /* Form */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-container label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .form-container input, 
+    .form-container button
+    {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .form-container button , .load, #returnBook, #returnedBooks{
+      background: #0066ff;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .load{
+      width: 200px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .load:hover{
+      background: #004ecc;
+    }
+    .form-container button:hover {
+      background: #004ecc;
+    }
+
+    /* Book List */
+    #memberList {
+      list-style: none;
+      padding: 0;
+      margin: 20px auto;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    #memberList li {
+      background: white;
+      margin-bottom: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer span {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    #issueTable th, #issueTable td {
+      border: 1px solid #ddd;        /* subtle border */
+      padding: 10px 14px;            /* padding for readability */
+      text-align: left;
+      font-size: 14px;
+    }
+
+    #issueTable th {
+      background: #0066ff;           /* header background */
+      color: white;                  /* header text */
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    #issueTable tr:nth-child(even) {
+      background: #f9f9f9;           /* zebra striping */
+    }
+
+    #issueTable tr:hover {
+      background: #f1f7ff;           /* highlight on hover */
+    }
+
+    #returnBook, #returnedBooks{
+      display: none;
+      width: 180px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #returnBook:hover, #returnedBooks{
+      background: #004ecc;
+    }
+    /* Mobile */
+    @media (max-width: 768px) {
+      .navbar ul {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: linear-gradient(90deg, #0066ff, #0099ff);
+        width: 200px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        display: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .form-container {
+        padding: 15px;
+      }
+
+      #bookList li {
+        font-size: 13px;
+        padding: 10px;
+      }
+
+      #issueTable {
+        border-collapse: collapse;
+        width: 100%;                  /* full width, responsive */
+        table-layout: auto;            /* adjust columns to data */
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="logo">
+      LIBRARY
+    </div>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation -->
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html">Books</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <div class="content">
+    <div class="form-container">
+      <form id="issueForm">
+        <label for="Bookid">Book ID</label>
+        <input type="text" id="Bookid" required>
+        
+        <label for="Memberid">Member ID</label>
+        <input type="text" id="Memberid" required>
+
+        <label for="Issuedate">Issue Date</label>
+        <input type="date" id="Issuedate" required>
+
+        <button type="submit">Issue Book</button>
+      </form>
+    </div>
+
+    <button onclick="load()" class="load">View Issued Books</button>
+    <!-- <ul id="bookList"></ul> -->
+      <div class="table-container">
+<table id="issueTable">
+  <caption style="margin:20px; font-weight: bold; font-size: 30px;" ></caption>
+  <thead></thead>
+  <tbody></tbody>
+</table>
+<div style="display: flex; justify-content: space-between;">
+<button id="returnBook" onclick="showDeleteForm()">Return Book</button>
+<button id="returnedBooks" onclick="window.location.href='returnedBooks.html'">Returned Books</button>
+</div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Made By: <span>Faraz Ahmed, Tamseel Ahmed, Umair Naseem, Abdul Latif</span></p>
+    <div class="credits">© 2025 Library Management System. All rights reserved.</div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+
+const ISSUE_API_URL = "http://localhost:3000/api/issues";
+
+// Add member
+document.getElementById("issueForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const issue = {
+    bookId: document.getElementById("Bookid").value,
+    memberId: document.getElementById("Memberid").value,
+    issueDate: document.getElementById("Issuedate").value
+  };
+
+  const res = await fetch(ISSUE_API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(issue)
+  });
+
+  const data = await res.json();
+  alert(data.message);
+
+  load(); // refresh table
+});
+
+// Load members
+async function load() {
+  const res = await fetch(ISSUE_API_URL);
+  const issues = await res.json();
+
+  // Table caption
+  document.querySelector("#issueTable caption").innerHTML = "Issued Books";
+
+  // Table head
+  const thead = document.querySelector("#issueTable thead");
+  thead.innerHTML = `
+    <tr>
+      <th>Issue ID</th>
+      <th>Book ID</th>
+      <th>Title</th>
+      <th>Member ID</th>
+      <th>Name</th>
+      <th>Issue Date</th>
+      <th>Due Date</th>
+    </tr>
+  `;
+
+  // Table body
+  const tbody = document.querySelector("#issueTable tbody");
+  tbody.innerHTML = "";
+
+  issues.forEach((i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${i.IssueID}</td>
+      <td>${i.BookID}</td>
+      <td>${i.Title}</td>
+      <td>${i.MemberID || "-"}</td>
+      <td>${i.Name || "-"}</td>
+      <td>${i.IssueDate|| "-"}</td>
+      <td>${i.DueDate|| "-"}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  if (issues.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No results found</td></tr>`;
+  }
+  // Show buttons
+  document.getElementById("returnBook").style.display = "block";
+  document.getElementById("returnedBooks").style.display = "block";
+}
+
+// Delete member
+function showDeleteForm() {
+  const issueId = prompt("Enter the Issue ID to return:");
+
+  if (issueId) {
+    if (confirm(`Are you sure you want to return book with Issue ID: ${issueId}?`)) {
+      fetch(`${ISSUE_API_URL}/${issueId}`, {
+        method: "DELETE"
+      })
+        .then(async res => {
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error(data.error || "Failed to return book");
+          }
+          alert(data.message || "Book returned successfully!");
+          load(); // refresh issued books table
+        })
+        .catch(err => {
+          console.error("Error returning book:", err);
+          alert("Failed to return book. Please try again.");
+        });
+    }
+  } else {
+    alert("No Issue ID entered.");
+  }
+}
+
+  </script>
+</body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .navbar .logo img {
+      width: 30px;
+      margin-right: 8px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffdd57;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    /* Form */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-container label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .form-container input, 
+    .form-container button
+    {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .form-container button , .load, #returnBook, #returnedBooks{
+      background: #0066ff;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .load{
+      width: 200px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .load:hover{
+      background: #004ecc;
+    }
+    .form-container button:hover {
+      background: #004ecc;
+    }
+
+    /* Book List */
+    #memberList {
+      list-style: none;
+      padding: 0;
+      margin: 20px auto;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    #memberList li {
+      background: white;
+      margin-bottom: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer span {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    #issueTable th, #issueTable td {
+      border: 1px solid #ddd;        /* subtle border */
+      padding: 10px 14px;            /* padding for readability */
+      text-align: left;
+      font-size: 14px;
+    }
+
+    #issueTable th {
+      background: #0066ff;           /* header background */
+      color: white;                  /* header text */
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    #issueTable tr:nth-child(even) {
+      background: #f9f9f9;           /* zebra striping */
+    }
+
+    #issueTable tr:hover {
+      background: #f1f7ff;           /* highlight on hover */
+    }
+
+    #returnBook, #returnedBooks{
+      display: none;
+      width: 180px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #returnBook:hover, #returnedBooks{
+      background: #004ecc;
+    }
+    /* Mobile */
+    @media (max-width: 768px) {
+      .navbar ul {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: linear-gradient(90deg, #0066ff, #0099ff);
+        width: 200px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        display: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .form-container {
+        padding: 15px;
+      }
+
+      #bookList li {
+        font-size: 13px;
+        padding: 10px;
+      }
+
+      #issueTable {
+        border-collapse: collapse;
+        width: 100%;                  /* full width, responsive */
+        table-layout: auto;            /* adjust columns to data */
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="logo">
+      LIBRARY
+    </div>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation -->
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html">Books</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <div class="content">
+    <div class="form-container">
+      <form id="issueForm">
+        <label for="Bookid">Book ID</label>
+        <input type="text" id="Bookid" required>
+        
+        <label for="Memberid">Member ID</label>
+        <input type="text" id="Memberid" required>
+
+        <label for="Issuedate">Issue Date</label>
+        <input type="date" id="Issuedate" required>
+
+        <button type="submit">Issue Book</button>
+      </form>
+    </div>
+
+    <button onclick="load()" class="load">View Issued Books</button>
+    <!-- <ul id="bookList"></ul> -->
+      <div class="table-container">
+<table id="issueTable">
+  <caption style="margin:20px; font-weight: bold; font-size: 30px;" ></caption>
+  <thead></thead>
+  <tbody></tbody>
+</table>
+<div style="display: flex; justify-content: space-between;">
+<button id="returnBook" onclick="showDeleteForm()">Return Book</button>
+<button id="returnedBooks" onclick="window.location.href='returnedBooks.html'">Returned Books</button>
+</div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Made By: <span>Faraz Ahmed, Tamseel Ahmed, Umair Naseem, Abdul Latif</span></p>
+    <div class="credits">© 2025 Library Management System. All rights reserved.</div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+
+const ISSUE_API_URL = "http://localhost:3000/api/issues";
+
+// Add member
+document.getElementById("issueForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const issue = {
+    bookId: document.getElementById("Bookid").value,
+    memberId: document.getElementById("Memberid").value,
+    issueDate: document.getElementById("Issuedate").value
+  };
+
+  const res = await fetch(ISSUE_API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(issue)
+  });
+
+  const data = await res.json();
+  alert(data.message);
+
+  load(); // refresh table
+});
+
+// Load members
+async function load() {
+  const res = await fetch(ISSUE_API_URL);
+  const issues = await res.json();
+
+  // Table caption
+  document.querySelector("#issueTable caption").innerHTML = "Issued Books";
+
+  // Table head
+  const thead = document.querySelector("#issueTable thead");
+  thead.innerHTML = `
+    <tr>
+      <th>Issue ID</th>
+      <th>Book ID</th>
+      <th>Title</th>
+      <th>Member ID</th>
+      <th>Name</th>
+      <th>Issue Date</th>
+      <th>Due Date</th>
+    </tr>
+  `;
+
+  // Table body
+  const tbody = document.querySelector("#issueTable tbody");
+  tbody.innerHTML = "";
+
+  issues.forEach((i) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${i.IssueID}</td>
+      <td>${i.BookID}</td>
+      <td>${i.Title}</td>
+      <td>${i.MemberID || "-"}</td>
+      <td>${i.Name || "-"}</td>
+      <td>${i.IssueDate|| "-"}</td>
+      <td>${i.DueDate|| "-"}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  if (issues.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No results found</td></tr>`;
+  }
+  // Show buttons
+  document.getElementById("returnBook").style.display = "block";
+  document.getElementById("returnedBooks").style.display = "block";
+}
+
+// Delete member
+function showDeleteForm() {
+  const issueId = prompt("Enter the Issue ID to return:");
+
+  if (issueId) {
+    if (confirm(`Are you sure you want to return book with Issue ID: ${issueId}?`)) {
+      fetch(`${ISSUE_API_URL}/${issueId}`, {
+        method: "DELETE"
+      })
+        .then(async res => {
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error(data.error || "Failed to return book");
+          }
+          alert(data.message || "Book returned successfully!");
+          load(); // refresh issued books table
+        })
+        .catch(err => {
+          console.error("Error returning book:", err);
+          alert("Failed to return book. Please try again.");
+        });
+    }
+  } else {
+    alert("No Issue ID entered.");
+  }
+}
+
+  </script>
+</body>
+>>>>>>> b297ab30f0dda0074983a1d5a1bc4bbc8f1655b0
+</html>

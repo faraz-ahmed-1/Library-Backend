@@ -1,0 +1,472 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .navbar .logo img {
+      width: 30px;
+      margin-right: 8px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffdd57;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    /* Form */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-container label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .form-container input, 
+    .form-container button
+    {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .form-container button{
+      background: #0066ff;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .form-container button:hover {
+      background: #004ecc;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer span {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .navbar ul {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: linear-gradient(90deg, #0066ff, #0099ff);
+        width: 200px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        display: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .form-container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="logo">
+      LIBRARY
+    </div>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation -->
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html">Books</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <div class="content">
+    <div class="form-container">
+      <form id="memberForm">
+        <label for="Name">Name</label>
+        <input type="text" id="Name" required>
+        
+        <label for="Email">Email</label>
+        <input type="email" id="Email" required>
+
+        <label for="Contact">Contact</label>
+        <input type="tel" id="Contact">
+        
+        <label for="Message">Message</label>
+        <input type="text" id="Message" required>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Made By: <span>Faraz Ahmed, Tamseel Ahmed, Umair Naseem, Abdul Latif</span></p>
+    <div class="credits">© 2025 Library Management System. All rights reserved.</div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+  </script>
+</body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .navbar .logo img {
+      width: 30px;
+      margin-right: 8px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffdd57;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    /* Form */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-container label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .form-container input, 
+    .form-container button
+    {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .form-container button{
+      background: #0066ff;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .form-container button:hover {
+      background: #004ecc;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer span {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .navbar ul {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: linear-gradient(90deg, #0066ff, #0099ff);
+        width: 200px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        display: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .form-container {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="logo">
+      LIBRARY
+    </div>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation -->
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html">Books</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <div class="content">
+    <div class="form-container">
+      <form id="memberForm">
+        <label for="Name">Name</label>
+        <input type="text" id="Name" required>
+        
+        <label for="Email">Email</label>
+        <input type="email" id="Email" required>
+
+        <label for="Contact">Contact</label>
+        <input type="tel" id="Contact">
+        
+        <label for="Message">Message</label>
+        <input type="text" id="Message" required>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Made By: <span>Faraz Ahmed, Tamseel Ahmed, Umair Naseem, Abdul Latif</span></p>
+    <div class="credits">© 2025 Library Management System. All rights reserved.</div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+  </script>
+</body>
+>>>>>>> b297ab30f0dda0074983a1d5a1bc4bbc8f1655b0
+</html>
