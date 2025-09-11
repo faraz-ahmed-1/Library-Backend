@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .navbar .logo img {
+      width: 30px;
+      margin-right: 8px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffdd57;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    /* Form */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .form-container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .form-container label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 500;
+      text-align: left;
+    }
+
+    .form-container input, 
+    .form-container button
+    {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .form-container button , .loadMembers, #deleteMember, #updateMember, #issueMember{
+      background: #0066ff;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .loadMembers{
+      width: 200px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .loadMembers:hover{
+      background: #004ecc;
+    }
+    .form-container button:hover {
+      background: #004ecc;
+    }
+
+    /* Book List */
+    #memberList {
+      list-style: none;
+      padding: 0;
+      margin: 20px auto;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    #memberList li {
+      background: white;
+      margin-bottom: 10px;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer span {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    #memberTable th, #memberTable td {
+      border: 1px solid #ddd;        /* subtle border */
+      padding: 10px 14px;            /* padding for readability */
+      text-align: left;
+      font-size: 14px;
+    }
+
+    #memberTable th {
+      background: #0066ff;           /* header background */
+      color: white;                  /* header text */
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    #memberTable tr:nth-child(even) {
+      background: #f9f9f9;           /* zebra striping */
+    }
+
+    #memberTable tr:hover {
+      background: #f1f7ff;           /* highlight on hover */
+    }
+
+    #deleteMember, #updateMember, #issueBook{
+      display: none;
+      width: 180px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #deleteMember:hover, #updateMember:hover, #issueBook:hover{
+      background: #004ecc;
+    }
+    /* Mobile */
+    @media (max-width: 768px) {
+      .navbar ul {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: linear-gradient(90deg, #0066ff, #0099ff);
+        width: 200px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        display: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .form-container {
+        padding: 15px;
+      }
+
+      #bookList li {
+        font-size: 13px;
+        padding: 10px;
+      }
+
+      #memberTable {
+        border-collapse: collapse;
+        width: 100%;                  /* full width, responsive */
+        table-layout: auto;            /* adjust columns to data */
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="logo">
+      LIBRARY
+    </div>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation -->
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html">Books</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Form -->
+  <div class="content">
+    <div class="form-container">
+      <form id="memberForm">
+        <label for="Name">Name</label>
+        <input type="text" id="Name" required>
+        
+        <label for="Address">Address</label>
+        <input type="text" id="Address">
+
+        <label for="Contact">Contact</label>
+        <input type="tel" id="Contact" required>
+
+        <button type="submit">Add Member</button>
+      </form>
+    </div>
+
+    <button onclick="loadMembers()" class="loadMembers">View Members</button>
+    <!-- <ul id="bookList"></ul> -->
+      <div class="table-container">
+<table id="memberTable">
+  <caption style="margin:20px; font-weight: bold; font-size: 30px;" ></caption>
+  <thead></thead>
+  <tbody></tbody>
+</table>
+<div style="display: flex; justify-content: space-between;">
+<button id="deleteMember" onclick="showDeleteForm()">Delete</button>
+<button id="updateMember" onclick="showUpdateForm()">Update</button>
+<button id="issueBook">Issue</button>
+</div>
+    </div>
+  </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Made By: <span>Faraz Ahmed, Tamseel Ahmed, Umair Naseem, Abdul Latif</span></p>
+    <div class="credits">© 2025 Library Management System. All rights reserved.</div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+
+const MEMBER_API_URL = "http://localhost:3000/api/members";
+
+// Add member
+document.getElementById("memberForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+    const contactValue = document.getElementById("Contact").value;
+
+    // 🔹 Fetch all books to check duplicate ISBN
+    const resMembers = await fetch(MEMBER_API_URL);
+    const members = await resMembers.json();
+
+    const exists = members.some(m => m.Contact === contactValue);
+    if (exists) {
+      alert("Contact already exists. Member not added!");
+      return;
+    }
+
+  const member = {
+    name: document.getElementById("Name").value,
+    address: document.getElementById("Address").value,
+    contact: document.getElementById("Contact").value
+  };
+
+  const res = await fetch(MEMBER_API_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(member)
+  });
+
+  const data = await res.json();
+  alert(data.message);
+
+  loadMembers(); // refresh table
+});
+
+// Load members
+async function loadMembers() {
+  const res = await fetch(MEMBER_API_URL);
+  const members = await res.json();
+
+  // Table caption
+  document.querySelector("#memberTable caption").innerHTML = "Member List";
+
+  // Table head
+  const thead = document.querySelector("#memberTable thead");
+  thead.innerHTML = `
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Contact</th>
+    </tr>
+  `;
+
+  // Table body
+  const tbody = document.querySelector("#memberTable tbody");
+  tbody.innerHTML = "";
+
+  members.forEach((m) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${m.MemberID}</td>
+      <td>${m.Name}</td>
+      <td>${m.Address || "-"}</td>
+      <td>${m.Contact || "-"}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  if (members.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No results found</td></tr>`;
+  }
+
+  // Show buttons
+  document.getElementById("deleteMember").style.display = "block";
+  document.getElementById("updateMember").style.display = "block";
+}
+
+// Delete member
+function showDeleteForm() {
+  const memberId = prompt("Enter the Member ID you want to delete:");
+
+  if (memberId) {
+    if (confirm(`Are you sure you want to delete member with ID: ${memberId}?`)) {
+      fetch(`${MEMBER_API_URL}/${memberId}`, {
+        method: "DELETE"
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+          loadMembers();
+        })
+        .catch(err => {
+          console.error("Error deleting member:", err);
+          alert("Failed to delete member.");
+        });
+    }
+  } else {
+    alert("No Member ID entered.");
+  }
+}
+
+// Update member
+function showUpdateForm() {
+  const memberId = prompt("Enter the Member ID:");
+  if (!memberId) {
+    alert("No Member ID entered.");
+    return;
+  }
+
+  // Ask user for new details
+  const name = prompt("Enter new Name:");
+  const address = prompt("Enter new Address:");
+  const contact = prompt("Enter new Contact:");
+
+  const updatedMember = { name, address, contact };
+
+  fetch(`${MEMBER_API_URL}/${memberId}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(updatedMember)
+  })
+    .then(res => res.json())
+    .then(data => {
+      alert(data.message || "Update failed");
+      loadMembers();
+    })
+    .catch(err => {
+      console.error("Error updating member:", err);
+      alert("Failed to update member.");
+    });
+}
+
+  </script>
+</body>
+</html>
