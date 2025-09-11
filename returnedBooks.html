@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library Management System</title>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #f5f7fa;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 20px;
+      background: linear-gradient(90deg, #0066ff, #0099ff);
+      color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .navbar .logo {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .navbar .logo img {
+      width: 30px;
+      margin-right: 8px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      color: white;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    .navbar ul li a:hover {
+      color: #ffdd57;
+    }
+
+    /* Hamburger */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      background: white;
+      height: 3px;
+      width: 25px;
+      margin: 4px 0;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
+
+    .load{
+      width: 200px;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      margin: auto;
+      background: #0066ff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .load:hover{
+      background: #004ecc;
+    }
+    .form-container button:hover {
+      background: #004ecc;
+    }
+
+    /* Footer */
+    .footer {
+      background-color: #111;
+      color: #ccc;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 14px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .footer span {
+      color: #fff;
+      font-weight: 500;
+    }
+
+    #returnTable th, #returnTable td {
+      border: 1px solid #ddd;        /* subtle border */
+      padding: 10px 14px;            /* padding for readability */
+      text-align: left;
+      font-size: 14px;
+    }
+
+    #returnTable th {
+      background: #0066ff;           /* header background */
+      color: white;                  /* header text */
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    #returnTable tr:nth-child(even) {
+      background: #f9f9f9;           /* zebra striping */
+    }
+
+    #returnTable tr:hover {
+      background: #f1f7ff;           /* highlight on hover */
+    }
+
+    #returnTable{
+      margin: auto;
+    }
+
+    #searchMember{
+      background: #0066ff;
+      color: white;
+      border: none;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    #searchMember{
+      display: none;
+      width: 115px;
+      padding: 10px;
+      margin: 10px auto;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #searchMember:hover{
+      background: #004ecc;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .navbar ul {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background: linear-gradient(90deg, #0066ff, #0099ff);
+        width: 200px;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+        display: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      .form-container {
+        padding: 15px;
+      }
+
+      #returnTable {
+        border-collapse: collapse;
+        width: 100%;                  /* full width, responsive */
+        table-layout: auto;            /* adjust columns to data */
+        margin: 20px auto;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/29/29302.png" alt="logo">
+      LIBRARY
+    </div>
+
+    <!-- Hamburger -->
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <!-- Navigation -->
+    <ul id="menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="books.html">Books</a></li>
+      <li><a href="members.html">Members</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </div>
+    <button onclick="load()" class="load">Load</button>
+    <!-- <ul id="bookList"></ul> -->
+      <div class="table-container">
+<table id="returnTable">
+  <caption style="margin:20px; font-weight: bold; font-size: 30px;" ></caption>
+  <thead></thead>
+  <tbody></tbody>
+</table>
+ <div style="display: flex;">
+<button id="searchMember" onclick="searchMember()">Search</button>
+<button id="searchMember" onclick="searchMember()">OverDue Books</button>
+</div>
+    </div>
+  <!-- </div> -->
+  <!-- </div> -->
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Made By: <span>Faraz Ahmed, Tamseel Ahmed, Umair Naseem, Abdul Latif</span></p>
+    <div class="credits">© 2025 Library Management System. All rights reserved.</div>
+  </div>
+
+  <!-- JS -->
+  <script>
+    function toggleMenu() {
+      document.getElementById("menu").classList.toggle("active");
+    }
+
+const RETURN_API_URL = "http://localhost:3000/api/returns";
+
+// Load returned books
+async function load() {
+  try {
+    const res = await fetch(RETURN_API_URL);
+    const returns = await res.json();
+
+    // Hide "View Issued Books" button if you want
+    const btns = document.getElementsByClassName("load");
+    if (btns.length > 0) btns[0].style.display = "none";
+
+    // Table caption
+    document.querySelector("#returnTable caption").innerHTML = "Returned Books";
+
+    // Table head
+    const thead = document.querySelector("#returnTable thead");
+    thead.innerHTML = `
+      <tr>
+        <th>Return ID</th>
+        <th>Issue ID</th>
+        <th>Book ID</th>
+        <th>Title</th>
+        <th>Member ID</th>
+        <th>Name</th>
+        <th>Return Date</th>
+        <th>Fine</th>
+      </tr>
+    `;
+
+    // Table body
+    const tbody = document.querySelector("#returnTable tbody");
+    tbody.innerHTML = "";
+
+    returns.forEach((r) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${r.ReturnID}</td>
+        <td>${r.IssueID}</td>
+        <td>${r.BookID}</td>
+        <td>${r.Title}</td>
+        <td>${r.MemberID}</td>
+        <td>${r.Name}</td>
+        <td>${r.ReturnDate}</td>
+        <td>${r.Fine || 0}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+    if (returns.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No results found</td></tr>`;
+  }
+  document.getElementById("searchMember").style.display = "block";
+  } catch (err) {
+    console.error("❌ Error loading returned books:", err);
+    alert("Failed to load returned books.");
+  }
+}
+
+async function searchMember() {
+    const value = prompt("Enter Member ID:");
+
+    if (!value) {
+    alert("Please enter a value to search!");
+    return;
+  }
+
+    const res = await fetch(`${RETURN_API_URL}/${value}`, { method: "GET" });
+    const results = await res.json();
+
+    const thead = document.querySelector("#returnTable thead");
+  thead.innerHTML = `
+    <tr>
+      <th>Return ID</th>
+      <th>Issue ID </th>
+      <th>Book ID</th>
+      <th>Title</th>
+      <th>Member ID</th>
+      <th>Name</th>
+      <th>Return Date</th>
+      <th>Fine</th>
+    </tr>
+  `;
+
+  const tbody = document.querySelector("#returnTable tbody");
+  tbody.innerHTML = "";
+
+  results.forEach((r) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${r.ReturnID}</td>
+      <td>${r.IssueID}</td>
+      <td>${r.BookID}</td>
+      <td>${r.Title}</td>
+      <td>${r.MemberID}</td>
+      <td>${r.Name}</td>
+      <td>${r.ReturnDate}</td>
+      <td>${r.Fine}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  if (results.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No results found</td></tr>`;
+  }
+}
+
+ const OVERDUE_API_URL = "http://localhost:3000/api/overdue-books";
+async function overDueBooks() {
+    const res = await fetch(OVERDUE_API_URL);
+    const availables = await res.json();
+
+    const caption = document.querySelector("#returnTable caption");
+    caption.innerHTML = "OverDue Books";
+
+    // Table head
+    const thead = document.querySelector("#returnTable thead");
+    thead.innerHTML = `
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>ISBN</th>
+      </tr>
+    `;
+
+    // Table body
+    const tbody = document.querySelector("#bookTable tbody");
+    tbody.innerHTML = "";
+
+    availables.forEach((a) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${a.id}</td>
+        <td>${a.title}</td>
+        <td>${a.author || "-"}</td>
+        <td>${a.category || "-"}</td>
+        <td>${a.isbn}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    if (availables.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;">No results found</td></tr>`;
+  }
+
+    document.getElementById("deleteBook").style.display = "none";
+    document.getElementById("updateBook").style.display = "none";
+    document.getElementById("issueBook").style.display = "none";
+    document.getElementById("availableBooks").style.display = "none";
+  }
+</script>
+</body>
+</html>
