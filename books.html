@@ -293,18 +293,18 @@
 
     <button onclick="loadBooks()" class="loadBooks">View Books</button>
       <div class="table-container">
-<table id="bookTable">
-  <caption style="margin:20px; font-weight: bold; font-size: 30px;" ></caption>
-  <thead></thead>
-  <tbody></tbody>
-</table>
-<div style="display: flex;">
-<button id="deleteBook" onclick="showDeleteForm()">Delete</button>
-<button id="updateBook" onclick="showUpdateForm()">Update</button>
-<button id="issueBook" onclick="window.location.href='issue.html'">Issue</button>
-<button id="searchBook" onclick="searchBook()">Search</button>
-<button id="availableBooks" onclick="availableBooks()">Available Books</button>
-</div>
+        <table id="bookTable">
+          <caption style="margin:20px; font-weight: bold; font-size: 30px;" ></caption>
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+        <div style="display: flex;">
+          <button id="deleteBook" onclick="showDeleteForm()">Delete</button>
+          <button id="updateBook" onclick="showUpdateForm()">Update</button>
+          <button id="issueBook" onclick="window.location.href='issue.html'">Issue</button>
+          <button id="searchBook" onclick="searchBook()">Search</button>
+          <button id="availableBooks" onclick="availableBooks()">Available Books</button>
+        </div>
     </div>
   </div>
   </div>
@@ -321,7 +321,7 @@
     document.getElementById("menu").classList.toggle("active");
   }
 
-  // const API_URL = "http://localhost:3000/api/books";
+  const API_URL = "http://localhost:3000/api/books";
 
   document.getElementById("bookForm").addEventListener("submit", async (e) => {
     e.preventDefault();

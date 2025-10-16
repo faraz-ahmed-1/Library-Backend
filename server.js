@@ -1,32 +1,38 @@
-const express = require('express'); //Framwork for APIs Handle HTTP requests
-const bodyParser = require('body-parser'); //Reads JSON requests from frontend
-const mysql = require('mysql2'); // MYSQL driver (connector)
-const cors = require('cors');  // Cross origin request server
+const express = require("express");
+const bodyParser = require("body-parser");
+const mysql = require("mysql2");
+const cors = require("cors");
+const path = require("path");
 
-// Initialize app
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-// MySQL connection
+// Serve frontend files (for HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, "public")));
+
+// ✅ Database connection (works locally + on Railway)
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',         // 🔹 your MySQL username
-  password: 'Soomro@144', // 🔹 your MySQL password
-  database: 'librarydb',
-  timezone: '+05:00'
+  host: process.env.DB_HOST || "localhost",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASS || "Soomro@144",
+  database: process.env.DB_NAME || "librarydb",
+  port: process.env.DB_PORT || 3306,
+  timezone: "+05:00",
 });
 
-//Make sure SQL is connected
-db.connect(err => {
+db.connect((err) => {
   if (err) {
-    console.error('Database connection failed:', err);
-    return;
+    console.error("❌ Database connection failed:", err);
+  } else {
+    console.log("✅ Connected to MySQL Database");
   }
-  console.log('✅ Connected to MySQL');
 });
 
-app.get('/', (req,res) => res.json({ ok: true }));
+// ✅ Default route to serve index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 // ----------------- BOOKS CRUD -----------------
 
@@ -60,7 +66,6 @@ app.post('/api/books', (req, res) => {
 
      if (result.affectedRows === 0) {
     return res.status(400).json({ message: 'ISBN already exists. Book not added.' });
-    
   }
 
     res.status(201).json({ message: 'Book added successfully', bookId: result.insertId });
@@ -407,7 +412,7 @@ app.get('/api/returns/:id', (req, res) => {
 
 // ----------------- SERVER -----------------
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on port ${PORT}`);
 });
