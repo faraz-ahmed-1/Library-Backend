@@ -260,7 +260,7 @@
       document.getElementById("menu").classList.toggle("active");
     }
 
-const RETURN_API_URL = "http://localhost:3000/api/returns";
+const RETURN_API_URL = "http://https://library-backend-4lvw.onrender.com/api/returns";
 
 // Load returned books
 async function load() {
@@ -366,7 +366,7 @@ async function searchMember() {
   }
 }
 
- const OVERDUE_API_URL = "http://localhost:3000/api/overdue-books";
+ const OVERDUE_API_URL = "http://https://library-backend-4lvw.onrender.com/api/overdue-books";
 async function overDueBooks() {
     const res = await fetch(OVERDUE_API_URL);
     const availables = await res.json();

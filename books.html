@@ -321,7 +321,7 @@
     document.getElementById("menu").classList.toggle("active");
   }
 
-  const API_URL = "http://localhost:3000/api/books";
+  const API_URL = "http://https://library-backend-4lvw.onrender.com/api/books";
 
   document.getElementById("bookForm").addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -410,7 +410,7 @@
     document.getElementById("searchBook").style.display = "block";
   }
 
-  const AVAILABLE_API_URL = "http://localhost:3000/api/available-books";
+  const AVAILABLE_API_URL = "http://https://library-backend-4lvw.onrender.com/api/available-books";
 
   async function availableBooks() {
     const res = await fetch(AVAILABLE_API_URL);
